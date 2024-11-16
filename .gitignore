@@ -1,0 +1,26 @@
+# Maven/Gradle
+/target/
+/.mvn/
+/build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Logs
+*.log
+/logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Dependency Directory
+/node_modules/
+
+# Configuration Files
+*.properties
+*.env
+
+# Database
+*.db
