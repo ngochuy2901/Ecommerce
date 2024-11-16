@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "e5a248a9-413f-4ed8-b06f-a2c2631aa5bc",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20710034"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/category/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "add new category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/category/addcategory"
+					},
+					"response": []
+				},
+				{
+					"name": "update category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\": \"Updated Category Name\",\r\n    \"categoryImgUrl\": \"http://example.com/updated-category-img.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/category/updatecategory/6"
+					},
+					"response": []
+				},
+				{
+					"name": "delete category by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "get all cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/cities"
+					},
+					"response": []
+				},
+				{
+					"name": "add city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/addcity"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/product/getallproducts"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
