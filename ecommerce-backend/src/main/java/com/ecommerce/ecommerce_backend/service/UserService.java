@@ -1,6 +1,6 @@
 package com.ecommerce.ecommerce_backend.service;
 
-import com.ecommerce.ecommerce_backend.config.PasswordConfig;
+import com.ecommerce.ecommerce_backend.utils.FileStorageProperties;
 import com.ecommerce.ecommerce_backend.dto.LoginRequest;
 import com.ecommerce.ecommerce_backend.dto.LoginResponse;
 import com.ecommerce.ecommerce_backend.dto.UserDto;
@@ -10,12 +10,20 @@ import com.ecommerce.ecommerce_backend.security.JwtUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -126,6 +134,62 @@ public class UserService {
         }
 
         return userRepository.save(user);
+    }
+
+    //upload user avatar
+    public ResponseEntity<?> uploadUserAvatar(String username, MultipartFile file) {
+
+        if (file == null || file.isEmpty()) {
+            throw new ServiceException("File is empty");
+        }
+
+        // Validate content type
+        String contentType = file.getContentType();
+        if (contentType == null ||
+                (!contentType.startsWith("image/"))) {
+            throw new ServiceException("Only image files are allowed");
+        }
+
+        // Find user
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ServiceException("User not found"));
+
+        try {
+            // Đường dẫn tuyệt đối tới static/images/avatars
+            String uploadDir = FileStorageProperties.AVATAR_UPLOAD_DIR;
+            Files.createDirectories(Paths.get(uploadDir));
+
+            // Tên file an toàn
+            String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
+            String fileExtension = "";
+
+            int dotIndex = originalFilename.lastIndexOf(".");
+            if (dotIndex > 0) {
+                fileExtension = originalFilename.substring(dotIndex);
+            }
+
+            String newFileName = UUID.randomUUID() + fileExtension;
+
+            Path filePath = Paths.get(uploadDir, newFileName);
+            Files.write(filePath, file.getBytes());
+
+            // URL public
+            String avatarUrl = "/images/avatars/" + newFileName;
+
+            // Update DB
+            user.setAvatarUrl(avatarUrl);
+            userRepository.save(user);
+
+            return ResponseEntity.ok().body(
+                    java.util.Map.of(
+                            "message", "Upload avatar successfully",
+                            "avatarUrl", avatarUrl
+                    )
+            );
+
+        } catch (IOException e) {
+            throw new ServiceException("Failed to upload avatar", e);
+        }
     }
 
 

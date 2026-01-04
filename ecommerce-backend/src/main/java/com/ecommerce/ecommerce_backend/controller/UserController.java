@@ -9,6 +9,7 @@ import com.ecommerce.ecommerce_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("user")
@@ -49,6 +50,12 @@ public class UserController {
     }
 
     //upload avatar
+    @PostMapping("upload_user_avatar")
+    public ResponseEntity<?> uploadUserAvatar(@RequestHeader("Authorization") String authHeader, @RequestPart("file") MultipartFile file) {
+        String token = jwtUtil.getTokenFromAuthHeader(authHeader);
+        String username = jwtUtil.extractUsername(token);
+        return userService.uploadUserAvatar(username, file);
+    }
 
     //change password
 

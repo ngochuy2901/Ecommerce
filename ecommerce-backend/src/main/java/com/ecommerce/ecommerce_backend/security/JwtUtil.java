@@ -2,15 +2,21 @@ package com.ecommerce.ecommerce_backend.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // ⚠️ >= 32 ký tự cho HS256
+    private static final String SECRET_KEY =
+            "ecommerce-backend-super-secret-key-123456";
+
+    private final Key key = Keys.hmacShaKeyFor(
+            SECRET_KEY.getBytes(StandardCharsets.UTF_8)
+    );
 //    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24h
 
     // tạo token
