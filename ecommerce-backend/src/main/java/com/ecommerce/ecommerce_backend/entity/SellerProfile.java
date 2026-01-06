@@ -17,7 +17,6 @@ public class SellerProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 1 user chỉ có 1 seller profile
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

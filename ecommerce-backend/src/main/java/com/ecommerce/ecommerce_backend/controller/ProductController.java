@@ -55,4 +55,9 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductsActive() {
         return ResponseEntity.ok(productService.getActiveProductForClient());
     }
+
+    @GetMapping("get_products_by_categorty_id/{categoryId}")
+    public ResponseEntity<List<Product>> findProductsByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        return ResponseEntity.ok(productService.findByCategoryId(categoryId));
+    }
 }

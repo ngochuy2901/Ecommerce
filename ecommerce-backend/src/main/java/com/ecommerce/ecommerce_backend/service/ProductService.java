@@ -96,6 +96,11 @@ public class ProductService {
         return product.get();
     }
 
+    //find by category
+    public List<Product> findByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+
     //get products by name
     public List<Product> getProductByName(String name) {
         return productRepository.findByNameContainingIgnoreCase(name);
@@ -104,6 +109,18 @@ public class ProductService {
     //update product by id
 
     //delete product by id
+    public boolean  deleteProductByProductId(String username, Product product) {
+        Optional<User> user = userRepository.findByUsername(username);
+//        if (user.isEmpty()) {
+//            throw new ServiceException("User is not exits!");
+//        }
+        Optional<SellerProfile> seller = sellerProfileRepository.findByUser(user.get());
+        if(seller.isEmpty()) {
+            throw new ServiceException("You're not own this product!");
+        }
+        productRepository.delete(product);
+        return true;
+    }
 
     //products active for client
     public List<Product> getActiveProductForClient() {
