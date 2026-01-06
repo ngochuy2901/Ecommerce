@@ -29,7 +29,10 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/user/login",
-                                "/user/register"
+                                "/user/register",
+                                "/product/get_all_products",
+                                "/product/get_products_by_name",
+                                "/product/get_products_active"
                         ).permitAll()
 //                        .anyRequest().authenticated()
                                 .anyRequest().permitAll()

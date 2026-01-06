@@ -18,6 +18,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long sellerId;
+
     @Column(nullable = false)
     private String name;
 
