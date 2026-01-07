@@ -1,0 +1,105 @@
+package android.app.ecommerce.ui.screen
+
+import android.app.ecommerce.R
+import android.app.ecommerce.data.fakedata.FakeData
+import android.app.ecommerce.data.fakedata.SellerProfileFakeData
+import android.app.ecommerce.data.model.Product
+import android.app.ecommerce.ui.component.SellerInfo
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun ProductDetailScreen(product: Product) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Box() {
+                Image(
+                    painterResource(R.drawable.ic_launcher_background),
+                    null,
+                    modifier = Modifier
+                        .height(418.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(
+                        onClick = {}, modifier = Modifier
+                            .size(45.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFF5F6FA))
+                    ) {
+                        Icon(painterResource(R.drawable.icon_view_list), null)
+                    }
+                    IconButton(
+                        onClick = {}, modifier = Modifier
+                            .size(45.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFFF5F6FA))
+                    ) {
+                        Icon(painterResource(R.drawable.icon_lock), null)
+                    }
+                }
+            }
+            Text("Description", fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+            Text(product.description ?: "", fontSize = 15.sp, color = Color(0xFF8F959E))
+            SellerInfo(SellerProfileFakeData.sellerProfile)
+
+
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .align(Alignment.BottomCenter)
+                .clip(RoundedCornerShape(12.dp))
+                .background(Color(0xFF9775FA)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Add to cart",
+                fontSize = 17.sp,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
+fun ProductDetailScreenPreview() {
+    ProductDetailScreen(FakeData.product)
+}

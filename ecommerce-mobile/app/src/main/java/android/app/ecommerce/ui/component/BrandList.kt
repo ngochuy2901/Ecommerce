@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.composable
+package android.app.ecommerce.ui.component
 
 import android.app.ecommerce.data.fakedata.BrandFakeData
 import android.app.ecommerce.data.model.Brand

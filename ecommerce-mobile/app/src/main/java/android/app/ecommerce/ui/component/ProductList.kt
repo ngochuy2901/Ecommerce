@@ -1,7 +1,7 @@
-package android.app.ecommerce.ui.composable
+package android.app.ecommerce.ui.component
 
 import android.app.ecommerce.R
-import android.app.ecommerce.data.model.FakeData
+import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.data.model.Product
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,13 +16,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text

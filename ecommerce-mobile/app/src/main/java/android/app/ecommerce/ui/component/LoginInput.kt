@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.composable
+package android.app.ecommerce.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

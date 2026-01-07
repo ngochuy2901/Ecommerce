@@ -1,8 +1,7 @@
 package android.app.ecommerce.ui.screen
 
 import android.app.ecommerce.R
-import android.app.ecommerce.ui.composable.LoginInput
-import android.app.ecommerce.ui.composable.SignUpInput
+import android.app.ecommerce.ui.component.LoginInput
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,6 @@
-package android.app.ecommerce.data.model
+package android.app.ecommerce.data.fakedata
+
+import android.app.ecommerce.data.model.Product
 
 object FakeData {
     val product = Product(

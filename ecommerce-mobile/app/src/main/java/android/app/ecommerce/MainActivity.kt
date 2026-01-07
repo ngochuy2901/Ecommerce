@@ -1,6 +1,8 @@
 package android.app.ecommerce
 
+import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.ui.screen.HomeScreen
+import android.app.ecommerce.ui.screen.ProductDetailScreen
 import android.app.ecommerce.ui.screen.SignUpScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,7 +26,7 @@ class MainActivity : ComponentActivity() {
             EcommerceTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        HomeScreen()
+                        ProductDetailScreen(FakeData.product)
                     }
                 }
             }
