@@ -1,8 +1,14 @@
 package android.app.ecommerce
 
 import android.app.ecommerce.data.fakedata.FakeData
+import android.app.ecommerce.data.fakedata.ReviewFakeData
+import android.app.ecommerce.ui.component.AppNavigationDrawer
+import android.app.ecommerce.ui.component.DrawerMenuIcon
+import android.app.ecommerce.ui.component.NavigationDrawer
+import android.app.ecommerce.ui.screen.AddReviewScreen
 import android.app.ecommerce.ui.screen.HomeScreen
 import android.app.ecommerce.ui.screen.ProductDetailScreen
+import android.app.ecommerce.ui.screen.ReviewScreen
 import android.app.ecommerce.ui.screen.SignUpScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,8 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import android.app.ecommerce.ui.theme.EcommerceTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDrawerState
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,7 +38,7 @@ class MainActivity : ComponentActivity() {
             EcommerceTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        ProductDetailScreen(FakeData.product)
+                        HomeScreen()
                     }
                 }
             }
