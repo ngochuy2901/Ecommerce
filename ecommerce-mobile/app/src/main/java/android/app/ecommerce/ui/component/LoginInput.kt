@@ -25,9 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginInput(modifier: Modifier = Modifier) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun LoginInput(
+    modifier: Modifier = Modifier,
+    onUsernameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    username: String,
+    password: String
+) {
     var isOn by remember { mutableStateOf(false) }
 
     Column(
@@ -42,7 +46,7 @@ fun LoginInput(modifier: Modifier = Modifier) {
         )
         BasicTextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = onUsernameChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp)
@@ -70,7 +74,7 @@ fun LoginInput(modifier: Modifier = Modifier) {
         )
         BasicTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = onPasswordChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(15.dp)
@@ -90,7 +94,12 @@ fun LoginInput(modifier: Modifier = Modifier) {
             ),
             visualTransformation = PasswordVisualTransformation(),
         )
-        Text("Forgot password?", color = Color(0xFFEA4335), modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.End)
+        Text(
+            "Forgot password?",
+            color = Color(0xFFEA4335),
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.End
+        )
 
         Row(
             modifier = Modifier
@@ -105,12 +114,17 @@ fun LoginInput(modifier: Modifier = Modifier) {
             )
         }
 
-        Text("By connecting your account confirm that you agree with our Term and Condition", color = Color(0xFF8F959E), fontSize = 13.sp, textAlign = TextAlign.Center)
+        Text(
+            "By connecting your account confirm that you agree with our Term and Condition",
+            color = Color(0xFF8F959E),
+            fontSize = 13.sp,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
-@Composable
-@Preview
-fun LoginInputPreview() {
-    LoginInput()
-}
+//@Composable
+//@Preview
+//fun LoginInputPreview() {
+//    LoginInput()
+//}

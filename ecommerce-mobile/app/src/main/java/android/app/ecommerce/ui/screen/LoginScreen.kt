@@ -2,7 +2,9 @@ package android.app.ecommerce.ui.screen
 
 import android.app.ecommerce.R
 import android.app.ecommerce.ui.component.LoginInput
+import android.app.ecommerce.viewmodel.LoginViewModel
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +19,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,9 +32,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
+
+    val isLoading by viewModel.isLoading
+    val loginError by viewModel.loginError
+    val isLoginSuccess by viewModel.isLoginSuccess
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +89,11 @@ fun LoginScreen() {
 
         // Social buttons - CENTER
         LoginInput(
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
+            username = username,
+            password = password,
+            onUsernameChange = { username = it },
+            onPasswordChange = { password = it }
         )
 
 
@@ -85,7 +105,13 @@ fun LoginScreen() {
                 .height(56.dp)
                 .align(Alignment.BottomCenter)
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFF9775FA)),
+                .background(Color(0xFF9775FA))
+                .clickable {
+                    viewModel.login(username, password)
+                    if (isLoginSuccess) {
+                        navController.navigate("home")
+                    }
+                },
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -100,5 +126,5 @@ fun LoginScreen() {
 @Composable
 @Preview
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(rememberNavController(), viewModel())
 }

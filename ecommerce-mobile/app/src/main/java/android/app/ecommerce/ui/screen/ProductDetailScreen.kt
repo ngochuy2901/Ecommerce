@@ -5,6 +5,7 @@ import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.data.fakedata.SellerProfileFakeData
 import android.app.ecommerce.data.model.Product
 import android.app.ecommerce.ui.component.SellerInfo
+import android.app.ecommerce.viewmodel.ProductDetailViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,53 +35,89 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 @Composable
-fun ProductDetailScreen(product: Product) {
+fun ProductDetailScreen(
+    navController: NavController,
+    viewModel: ProductDetailViewModel
+) {
+    val product by viewModel.product
+    val isLoading by viewModel.isLoading
+
     Box(modifier = Modifier.fillMaxSize()) {
+
+        if (isLoading) {
+            Text("Loading...", modifier = Modifier.align(Alignment.Center))
+            return
+        }
+
+        if (product == null) {
+            Text("Product not found", modifier = Modifier.align(Alignment.Center))
+            return
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Box() {
+            Box {
                 Image(
-                    painterResource(R.drawable.ic_launcher_background),
-                    null,
+                    painter = painterResource(R.drawable.ic_launcher_background),
+                    contentDescription = null,
                     modifier = Modifier
                         .height(418.dp)
-                        .fillMaxWidth()
-                        .align(Alignment.TopCenter)
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.Crop
                 )
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
-                        onClick = {}, modifier = Modifier
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier
                             .size(45.dp)
                             .clip(CircleShape)
                             .background(Color(0xFFF5F6FA))
                     ) {
-                        Icon(painterResource(R.drawable.icon_view_list), null)
+                        Icon(
+                            painterResource(R.drawable.icon_arrow_back),
+                            contentDescription = null
+                        )
                     }
+
                     IconButton(
-                        onClick = {}, modifier = Modifier
+                        onClick = {
+                            navController.navigate("cart")
+                        },
+                        modifier = Modifier
                             .size(45.dp)
                             .clip(CircleShape)
                             .background(Color(0xFFF5F6FA))
                     ) {
-                        Icon(painterResource(R.drawable.icon_lock), null)
+                        Icon(
+                            painterResource(R.drawable.icon_cart),
+                            contentDescription = null
+                        )
                     }
                 }
             }
+
             Text("Description", fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
-            Text(product.description ?: "", fontSize = 15.sp, color = Color(0xFF8F959E))
+            Text(
+                product!!.description?:"",
+                fontSize = 15.sp,
+                color = Color(0xFF8F959E)
+            )
+
             SellerInfo(SellerProfileFakeData.sellerProfile)
-
-
         }
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -89,17 +127,14 @@ fun ProductDetailScreen(product: Product) {
                 .background(Color(0xFF9775FA)),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Add to cart",
-                fontSize = 17.sp,
-                color = Color.White
-            )
+            Text("Add to cart", fontSize = 17.sp, color = Color.White)
         }
     }
 }
 
+
 @Composable
 @Preview
 fun ProductDetailScreenPreview() {
-    ProductDetailScreen(FakeData.product)
+    ProductDetailScreen(rememberNavController(), viewModel ())
 }

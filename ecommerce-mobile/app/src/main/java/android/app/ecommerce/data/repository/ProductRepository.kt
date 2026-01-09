@@ -15,4 +15,14 @@ class ProductRepository {
             emptyList()
         }
     }
+
+    suspend fun getProductById(productId: Long): Product? {
+        val response = RetrofitClient.productApi.getProductById(productId)
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
+        }
+    }
+
 }

@@ -3,8 +3,10 @@ package android.app.ecommerce.ui.component
 import android.app.ecommerce.R
 import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.data.model.Product
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,10 +35,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun ProductList(productsList: List<Product>) {
+fun ProductList(productsList: List<Product>, navController: NavController) {
     Column {
         Row(
             modifier = Modifier
@@ -64,14 +68,14 @@ fun ProductList(productsList: List<Product>) {
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             items(productsList) { product ->
-                ProductItem(product)
+                ProductItem(product, navController)
             }
         }
     }
 }
 
 @Composable
-fun ProductListColumn(products : List<Product>) {
+fun ProductListColumn(products : List<Product>, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -99,7 +103,8 @@ fun ProductListColumn(products : List<Product>) {
                 rowItems.forEach { product ->
                     ProductItem(
                         product,
-//                        modifier = Modifier.weight(1f)
+//                        modifier = Modifier.weight(1f),
+                        navController
                     )
                 }
                 // Nếu row còn 1 item, thêm Spacer để cân layout
@@ -118,18 +123,18 @@ fun ProductListColumn(products : List<Product>) {
 @Composable
 @Preview
 fun ProductListColumnPreview() {
-    ProductListColumn(FakeData.productList)
+    ProductListColumn(FakeData.productList, rememberNavController())
 }
 
 @Composable
 @Preview
 fun ProductListPreview() {
-    ProductList(FakeData.productList)
+    ProductList(FakeData.productList, rememberNavController())
 }
 
 @Composable
 fun ProductItem(
-    product: Product
+    product: Product, navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -138,6 +143,10 @@ fun ProductItem(
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFFF5F6FA)) // nền nhẹ, tạo cảm giác thẻ
             .padding(8.dp)
+            .clickable {
+                navController.navigate("product_detail/${product.id}")
+            }
+
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -191,5 +200,5 @@ fun ProductItem(
 @Composable
 @Preview
 fun ProductItemPreview() {
-    ProductItem(FakeData.product)
+    ProductItem(FakeData.product, rememberNavController())
 }

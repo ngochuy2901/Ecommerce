@@ -35,11 +35,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel(),
+    navController: NavController
 ) {
     val products by viewModel.products
     val isLoading by viewModel.isLoading
@@ -70,7 +73,7 @@ fun HomeScreen(
                     if (isLoading) {
                         CircularProgressIndicator()
                     } else {
-                        ProductList(products)
+                        ProductList(products, navController)
                     }
 //        ProductList(FakeData.productList)
                 }
@@ -84,6 +87,6 @@ fun HomeScreen(
 @Composable
 @Preview
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(navController = rememberNavController())
 }
 

@@ -34,9 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun VerificationCodeScreen() {
+fun VerificationCodeScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
 
     Box(
@@ -139,5 +141,5 @@ fun VerificationCodeScreen() {
 @Composable
 @Preview
 fun VerificationCodeScreenPreview() {
-    VerificationCodeScreen()
+    VerificationCodeScreen(rememberNavController())
 }

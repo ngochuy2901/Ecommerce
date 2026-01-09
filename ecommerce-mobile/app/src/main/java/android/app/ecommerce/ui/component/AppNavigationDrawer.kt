@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -119,7 +120,20 @@ fun DrawerMenuIcon(
                 .clip(CircleShape)
                 .background(Color(0xFFF5F6FA))
         ) {
-            Icon(painterResource(R.drawable.icon_lock), null)
+            Icon(painterResource(R.drawable.icon_cart), null)
         }
     }
+}
+
+@Composable
+fun UserInfo(modifier: Modifier) {
+    Row(modifier = modifier) {
+
+    }
+}
+
+@Composable
+@Preview
+fun UserInfoPreview() {
+    UserInfo(modifier = Modifier.height(45.dp).height(260.dp))
 }
