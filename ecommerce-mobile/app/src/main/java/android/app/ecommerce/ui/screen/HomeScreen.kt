@@ -1,6 +1,7 @@
 package android.app.ecommerce.ui.screen
 
 import android.app.ecommerce.R
+import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.ui.component.AppNavigationDrawer
 import android.app.ecommerce.ui.component.DrawerMenuIcon
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,10 +48,10 @@ fun HomeScreen(
 ) {
     val products by viewModel.products
     val isLoading by viewModel.isLoading
-
+    val auth = Auth(LocalContext.current)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
-    AppNavigationDrawer(drawerState = drawerState) {
+    AppNavigationDrawer(drawerState = drawerState, navController = navController) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -75,7 +77,6 @@ fun HomeScreen(
                     } else {
                         ProductList(products, navController)
                     }
-//        ProductList(FakeData.productList)
                 }
             }
         }

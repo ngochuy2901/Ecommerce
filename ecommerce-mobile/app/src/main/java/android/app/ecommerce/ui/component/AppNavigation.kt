@@ -25,7 +25,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = "splash"
     ) {
         composable("home") {
             HomeScreen(navController = navController)

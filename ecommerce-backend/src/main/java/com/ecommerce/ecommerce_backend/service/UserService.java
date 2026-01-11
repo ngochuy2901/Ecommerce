@@ -53,11 +53,19 @@ public class UserService {
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new ServiceException("User not found"));
         if (user.getStatus() == User.UserStatus.BLOCKED) {
-            throw new ServiceException("User is blocked");
+            return new LoginResponse(
+                    "failed",
+                    "user is blocked",
+                    null
+            );
         }
         // 4. Check password
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new ServiceException("Invalid username or password");
+            return new LoginResponse(
+                    "failed",
+                    "wrong username or password",
+                    null
+            );
         }
         String token = jwtUtil.generateToken(user.getUsername());
 

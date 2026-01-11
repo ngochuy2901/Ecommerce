@@ -3,6 +3,7 @@ package android.app.ecommerce.ui.screen
 import android.app.ecommerce.R
 import android.app.ecommerce.ui.component.SocialSignInButton
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -80,7 +81,10 @@ fun EntryAuthScreen(navController: NavController) {
             color = Color.Gray,
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(top = 220.dp) // chỉnh theo UI
+                .padding(top = 220.dp)
+                .clickable {
+                    navController.navigate("login")
+                }
         )
 
         // Create Account button - bottom
@@ -90,7 +94,10 @@ fun EntryAuthScreen(navController: NavController) {
                 .height(56.dp)
                 .align(Alignment.BottomCenter)
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFF9775FA)),
+                .background(Color(0xFF9775FA))
+                .clickable {
+                    navController.navigate("sign_up")
+                },
             contentAlignment = Alignment.Center
         ) {
             Text(

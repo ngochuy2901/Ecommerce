@@ -2,38 +2,51 @@ package android.app.ecommerce.viewmodel
 
 import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.data.dto.LoginRequest
+import android.app.ecommerce.data.repository.UserRepository
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginViewModel(private val auth: Auth) : ViewModel() {
 
     var isLoading = mutableStateOf(false)
-        private set
-    var isLoginSuccess = mutableStateOf(false)
-        private set
-    var loginError = mutableStateOf<String?>(null)
-        private set
+    var _isLoginSuccess  = mutableStateOf(false)
+    val isLoginSuccess = _isLoginSuccess
 
-    fun login(email: String, password: String) {
+    var loginError = mutableStateOf<String?>(null)
+
+    fun login(username: String, password: String) {
         viewModelScope.launch {
             isLoading.value = true
             loginError.value = null
             try {
-                val response = auth.login(LoginRequest(email, password))
-                if (response != null) {
+                val response = auth.login(LoginRequest(username, password))
+                Log.d("LoginVM", "Response: ${response!!.message}")
+                if (response!!.status == "success") {
                     // Login thành công
-                    Log.d("LoginVM", "Login thành công, token: ${response.token}")
+                    Log.d("LoginVM", "Login thành công")
                     isLoginSuccess.value = true
                 } else {
+                    Log.d("LoginVM", "Response: ${response!!.message}")
                     loginError.value = "Email hoặc mật khẩu không đúng"
                 }
+            } catch (e: HttpException) {
+                loginError.value = "Sai tài khoản hoặc mật khẩu"
+                Log.d("LoginVM", loginError.value!!)
+            } catch (e: IOException) {
+                loginError.value = "Không có kết nối mạng"
+                Log.d("LoginVM", loginError.value!!)
             } catch (e: Exception) {
-                loginError.value = "Lỗi mạng hoặc server"
+                loginError.value = "Lỗi không xác định"
+                Log.d("LoginVM", e.message?:"Loi deo xac dinh")
             } finally {
                 isLoading.value = false
             }
@@ -47,13 +60,14 @@ class LoginViewModel(private val auth: Auth) : ViewModel() {
     fun isLoggedIn() = auth.isLoggedIn()
 }
 
-
-//class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-//            @Suppress("UNCHECKED_CAST")
-//            return LoginViewModel(Auth.getInstance(context)) as T
-//        }
-//        throw IllegalArgumentException("Unknown ViewModel class")
-//    }
-//}
+class LoginViewModelFactory(
+    private val auth: Auth
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return LoginViewModel(auth) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

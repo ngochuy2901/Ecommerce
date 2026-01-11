@@ -1,5 +1,6 @@
 package android.app.ecommerce
 
+import android.app.ecommerce.data.api.RetrofitClient
 import android.app.ecommerce.ui.component.AppNavigation
 import android.app.ecommerce.ui.screen.AddressScreen
 import android.app.ecommerce.ui.screen.HomeScreen
@@ -15,8 +16,7 @@ import androidx.compose.ui.Modifier
 import android.app.ecommerce.ui.theme.EcommerceTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
             EcommerceTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
+                        RetrofitClient.init(this@MainActivity)
                         AppNavigation()
                     }
                 }

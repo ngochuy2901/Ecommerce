@@ -1,8 +1,10 @@
 package android.app.ecommerce.ui.screen
 
 import android.app.ecommerce.R
+import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.ui.component.LoginInput
 import android.app.ecommerce.viewmodel.LoginViewModel
+import android.app.ecommerce.viewmodel.LoginViewModelFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,14 +41,26 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(navController: NavController) {
 
+    val auth = Auth(LocalContext.current)
+    val viewModel: LoginViewModel = viewModel(
+        factory = LoginViewModelFactory(auth)
+    )
     val isLoading by viewModel.isLoading
     val loginError by viewModel.loginError
     val isLoginSuccess by viewModel.isLoginSuccess
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    LaunchedEffect(isLoginSuccess) {
+        if (isLoginSuccess) {
+            auth.loadUserProfile()
+            navController.navigate("home") {
+                popUpTo("login") { inclusive = true }
+            }
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -97,7 +113,6 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
         )
 
 
-
         // Create Account button - bottom
         Box(
             modifier = Modifier
@@ -108,14 +123,11 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 .background(Color(0xFF9775FA))
                 .clickable {
                     viewModel.login(username, password)
-                    if (isLoginSuccess) {
-                        navController.navigate("home")
-                    }
                 },
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Sign Up",
+                text = "Login",
                 fontSize = 17.sp,
                 color = Color.White
             )
@@ -126,5 +138,5 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
 @Composable
 @Preview
 fun LoginScreenPreview() {
-    LoginScreen(rememberNavController(), viewModel())
+    LoginScreen(rememberNavController())
 }
