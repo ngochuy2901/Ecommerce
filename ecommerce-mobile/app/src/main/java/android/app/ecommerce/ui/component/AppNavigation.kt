@@ -1,11 +1,14 @@
 package android.app.ecommerce.ui.component
 
 import android.app.ecommerce.ui.screen.CartScreen
+import android.app.ecommerce.ui.screen.DashBoardForSeller
 import android.app.ecommerce.ui.screen.EntryAuthScreen
 import android.app.ecommerce.ui.screen.HomeScreen
 import android.app.ecommerce.ui.screen.LoginScreen
 import android.app.ecommerce.ui.screen.ProductDetailScreen
+import android.app.ecommerce.ui.screen.ProfileScreen
 import android.app.ecommerce.ui.screen.ReviewScreen
+import android.app.ecommerce.ui.screen.SellerSignUpScreen
 import android.app.ecommerce.ui.screen.SignUpScreen
 import android.app.ecommerce.ui.screen.SplashScreen
 import android.app.ecommerce.ui.screen.VerificationCodeScreen
@@ -41,6 +44,15 @@ fun AppNavigation() {
         }
         composable("cart") {
             CartScreen(navController)
+        }
+        composable("profile") {
+            ProfileScreen(navController)
+        }
+        composable("dashboard") {
+            DashBoardForSeller()
+        }
+        composable("sign_up_seller") {
+            SellerSignUpScreen(navController)
         }
         composable("splash") {
             SplashScreen(navController = navController)

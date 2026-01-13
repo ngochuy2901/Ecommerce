@@ -1,22 +1,18 @@
 package android.app.ecommerce.ui.screen
 
+import androidx.compose.runtime.Composable
+
 import android.app.ecommerce.R
+import android.app.ecommerce.ui.component.SellerInput
 import android.app.ecommerce.ui.component.SignUpInput
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,14 +26,20 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SellerSignUpScreen(navController: NavController) {
+
+    var shopName by remember { mutableStateOf("") }
+    var shopDescription by remember { mutableStateOf("") }
+    var shopAddress by remember { mutableStateOf("") }
+    var identityNumber by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
 
-        // Header: Back + Title
+        // HEADER
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,12 +48,12 @@ fun SignUpScreen(navController: NavController) {
         ) {
 
             IconButton(
-                onClick = {},
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .size(45.dp)
                     .clip(CircleShape)
                     .background(Color(0xFFF5F6FA))
-                    .align(Alignment.Start) // icon vẫn bên trái
+                    .align(Alignment.Start)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.icon_arrow_back),
@@ -62,20 +64,41 @@ fun SignUpScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "SignUp",
-                fontSize = 28.sp,
+                text = "Đăng ký người bán",
+                fontSize = 26.sp,
                 fontWeight = FontWeight.SemiBold
             )
         }
 
-        // Social buttons - CENTER
-        SignUpInput(
-            navController
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.align(Alignment.Center)) {
 
+            SellerInput(
+                label = "Tên cửa hàng",
+                value = shopName,
+                onValueChange = { shopName = it }
+            )
 
+            SellerInput(
+                label = "Mô tả cửa hàng",
+                value = shopDescription,
+                onValueChange = { shopDescription = it },
+                singleLine = false
+            )
 
-        // Create Account button - bottom
+            SellerInput(
+                label = "Địa chỉ cửa hàng",
+                value = shopAddress,
+                onValueChange = { shopAddress = it }
+            )
+
+            SellerInput(
+                label = "Số CCCD / CMND",
+                value = identityNumber,
+                onValueChange = { identityNumber = it }
+            )
+        }
+
+        // BUTTON - BOTTOM
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -86,9 +109,10 @@ fun SignUpScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Sign Up",
+                text = "Đăng ký người bán",
                 fontSize = 17.sp,
-                color = Color.White
+                color = Color.White,
+                fontWeight = FontWeight.Medium
             )
         }
     }
@@ -96,6 +120,6 @@ fun SignUpScreen(navController: NavController) {
 
 @Composable
 @Preview
-fun SignUpScreenPreview() {
-    SignUpScreen(rememberNavController())
+fun SellerSignUpScreenPreview() {
+    SellerSignUpScreen(rememberNavController())
 }

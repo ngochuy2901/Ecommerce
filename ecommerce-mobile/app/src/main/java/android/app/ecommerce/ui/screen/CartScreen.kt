@@ -1,6 +1,7 @@
 package android.app.ecommerce.ui.screen
 
 
+import android.annotation.SuppressLint
 import android.app.ecommerce.R
 import android.app.ecommerce.data.fakedata.CartFakeData
 import android.app.ecommerce.data.model.CartItem
@@ -41,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun CartScreen(
     navController: NavController,

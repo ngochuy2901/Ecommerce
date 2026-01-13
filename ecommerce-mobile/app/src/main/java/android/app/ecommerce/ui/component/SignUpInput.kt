@@ -22,120 +22,124 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SignUpInput(modifier: Modifier = Modifier) {
+fun SignUpInput(navController: NavController) {
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var isOn by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier,
-        verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)
-    ) {
-
-        Text(
-            text = "Username",
-            fontSize = 13.sp,
-            color = Color(0xFF8F959E)
-        )
-        BasicTextField(
-            value = username,
-            onValueChange = { username = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(15.dp)
-                .drawBehind {
-                    // vẽ gạch chân
-                    val strokeWidth = 1.dp.toPx()
-                    val y = size.height
-                    drawLine(
-                        color = Color.Gray,
-                        start = androidx.compose.ui.geometry.Offset(0f, y),
-                        end = androidx.compose.ui.geometry.Offset(size.width, y),
-                        strokeWidth = strokeWidth
-                    )
-                }
-            ,
-            textStyle = TextStyle(
-                fontSize = 15.sp
-            ),
-
-        )
-
-        Text(
-            text = "Password",
-            fontSize = 13.sp,
-            color = Color(0xFF8F959E)
-        )
-        BasicTextField(
-            value = password,
-            onValueChange = { password = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(15.dp)
-                .drawBehind {
-                    // vẽ gạch chân
-                    val strokeWidth = 1.dp.toPx()
-                    val y = size.height
-                    drawLine(
-                        color = Color.Gray,
-                        start = androidx.compose.ui.geometry.Offset(0f, y),
-                        end = androidx.compose.ui.geometry.Offset(size.width, y),
-                        strokeWidth = strokeWidth
-                    )
-                },
-            textStyle = TextStyle(
-                fontSize = 15.sp
-            ),
-            visualTransformation = PasswordVisualTransformation(),
-        )
-
-        Text(
-            text = "Email Address",
-            fontSize = 13.sp,
-            color = Color(0xFF8F959E)
-        )
-        BasicTextField(
-            value = email,
-            onValueChange = { email = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(15.dp)
-                .drawBehind {
-                    // vẽ gạch chân
-                    val strokeWidth = 1.dp.toPx()
-                    val y = size.height
-                    drawLine(
-                        color = Color.Gray,
-                        start = androidx.compose.ui.geometry.Offset(0f, y),
-                        end = androidx.compose.ui.geometry.Offset(size.width, y),
-                        strokeWidth = strokeWidth
-                    )
-                },
-            singleLine = true,
-
-        )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+    LayoutWithHeaderBackIconButton("SignUp for seller", {navController.popBackStack()}) {
+        Column(
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)
         ) {
-            Text("Remember me", fontSize = 13.sp)
-            Switch(
-                checked = isOn,
-                onCheckedChange = { isOn = it }
+
+            Text(
+                text = "Username",
+                fontSize = 13.sp,
+                color = Color(0xFF8F959E)
             )
+            BasicTextField(
+                value = username,
+                onValueChange = { username = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(15.dp)
+                    .drawBehind {
+                        // vẽ gạch chân
+                        val strokeWidth = 1.dp.toPx()
+                        val y = size.height
+                        drawLine(
+                            color = Color.Gray,
+                            start = androidx.compose.ui.geometry.Offset(0f, y),
+                            end = androidx.compose.ui.geometry.Offset(size.width, y),
+                            strokeWidth = strokeWidth
+                        )
+                    }
+                ,
+                textStyle = TextStyle(
+                    fontSize = 15.sp
+                ),
+
+                )
+
+            Text(
+                text = "Password",
+                fontSize = 13.sp,
+                color = Color(0xFF8F959E)
+            )
+            BasicTextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(15.dp)
+                    .drawBehind {
+                        // vẽ gạch chân
+                        val strokeWidth = 1.dp.toPx()
+                        val y = size.height
+                        drawLine(
+                            color = Color.Gray,
+                            start = androidx.compose.ui.geometry.Offset(0f, y),
+                            end = androidx.compose.ui.geometry.Offset(size.width, y),
+                            strokeWidth = strokeWidth
+                        )
+                    },
+                textStyle = TextStyle(
+                    fontSize = 15.sp
+                ),
+                visualTransformation = PasswordVisualTransformation(),
+            )
+
+            Text(
+                text = "Email Address",
+                fontSize = 13.sp,
+                color = Color(0xFF8F959E)
+            )
+            BasicTextField(
+                value = email,
+                onValueChange = { email = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(15.dp)
+                    .drawBehind {
+                        // vẽ gạch chân
+                        val strokeWidth = 1.dp.toPx()
+                        val y = size.height
+                        drawLine(
+                            color = Color.Gray,
+                            start = androidx.compose.ui.geometry.Offset(0f, y),
+                            end = androidx.compose.ui.geometry.Offset(size.width, y),
+                            strokeWidth = strokeWidth
+                        )
+                    },
+                singleLine = true,
+
+                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Remember me", fontSize = 13.sp)
+                Switch(
+                    checked = isOn,
+                    onCheckedChange = { isOn = it }
+                )
+            }
         }
     }
+
 }
 
 
 @Composable
 @Preview
 fun SignUpInputPreview() {
-    SignUpInput()
+    SignUpInput(rememberNavController())
 }

@@ -4,6 +4,8 @@ import android.app.ecommerce.R
 import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.data.dto.UserDto
 import android.app.ecommerce.data.fakedata.UserFakeData
+import android.app.ecommerce.data.model.Role
+import android.app.ecommerce.data.model.User
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -36,7 +38,11 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,10 +64,19 @@ fun AppNavigationDrawer(
     navController: NavController,
     content: @Composable () -> Unit,
 ) {
+    var showDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val auth = Auth(context)
     val userInfo = auth.getUserInfo()
+    ActionDialog(
+        showDialog,
+        "You're not seller, sign in as seller?",
+        "Do you want to sign in as seller?",
+        "Yes",
+        "No",
+        onCancel = {showDialog = false},
+        onConfirm = {navController.navigate("sign_up_seller")}) { }
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -88,27 +103,48 @@ fun AppNavigationDrawer(
                     //
 
                     HorizontalDivider()
-                    if(userInfo!=null) {
+                    if (userInfo != null) {
                         NavigationDrawerItem(
-                            label = { UserInfo(userInfo) },
+                            label = { UserInfo(userInfo, navController) },
                             selected = false,
-                            onClick = {}
+                            onClick = {
+                                navController.navigate("profile")
+                            }
                         )
                     } else {
                         NavigationDrawerItem(
                             label = { Text("Click to login") },
                             selected = false,
-                            onClick = {navController.navigate("login")}
+                            onClick = { navController.navigate("login") }
                         )
                     }
 
+                    if (auth.isLoggedIn()) {
+                        NavigationDrawerItem(
+                            label = { Text("Switch account") },
+                            selected = false,
+                            icon = {
+                                Icon(
+                                    painterResource(R.drawable.icon_switch_account),
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = {
+                                if (userInfo!!.role == Role.SELLER) {
+                                    navController.navigate("dashboard")
+                                } else {
+                                    showDialog = true
+                                }
+                            }
+                        )
+                    }
 
                     NavigationDrawerItem(
                         label = { Text("Settings") },
                         selected = false,
                         icon = {
                             Icon(
-                                painterResource(R.drawable.icon_lock),
+                                painterResource(R.drawable.icon_setting),
                                 contentDescription = null
                             )
                         },
@@ -120,7 +156,7 @@ fun AppNavigationDrawer(
                         selected = false,
                         icon = {
                             Icon(
-                                painterResource(R.drawable.icon_lock),
+                                painterResource(R.drawable.icon_logout),
                                 contentDescription = null
                             )
                         },
@@ -135,6 +171,12 @@ fun AppNavigationDrawer(
     ) {
         content()
     }
+}
+
+@Composable
+@Preview
+fun AppNavigationDrawerPreview() {
+    AppNavigationDrawer(rememberDrawerState(DrawerValue.Open), rememberNavController(), {})
 }
 
 @Composable
@@ -174,11 +216,11 @@ fun DrawerMenuIcon(
 @Composable
 @Preview
 fun DrawerMenuIconPreview() {
-    DrawerMenuIcon(rememberDrawerState(DrawerValue.Closed), rememberNavController())
+    DrawerMenuIcon(rememberDrawerState(DrawerValue.Open), rememberNavController())
 }
 
 @Composable
-fun UserInfo(userDto: UserDto) {
+fun UserInfo(userDto: UserDto, navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -236,5 +278,5 @@ fun UserInfo(userDto: UserDto) {
 @Composable
 @Preview
 fun UserInfoPreview() {
-    UserInfo(UserFakeData.userDtoExample)
+    UserInfo(UserFakeData.userDtoExample, rememberNavController())
 }
