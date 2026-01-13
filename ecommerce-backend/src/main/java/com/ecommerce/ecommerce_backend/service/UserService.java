@@ -70,7 +70,7 @@ public class UserService {
         String token = jwtUtil.generateToken(user.getUsername());
 
         // 6. Update last login
-        user.setLastLogin(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now().toString());
         userRepository.save(user);
 
         // 7. Return response

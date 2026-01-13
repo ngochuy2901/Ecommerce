@@ -4,10 +4,13 @@ import android.app.ecommerce.R
 import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.data.fakedata.SellerProfileFakeData
 import android.app.ecommerce.data.model.Product
+import android.app.ecommerce.data.repository.CartRepository
 import android.app.ecommerce.ui.component.SellerInfo
 import android.app.ecommerce.viewmodel.ProductDetailViewModel
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +49,7 @@ fun ProductDetailScreen(
 ) {
     val product by viewModel.product
     val isLoading by viewModel.isLoading
+    val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -124,7 +129,11 @@ fun ProductDetailScreen(
                 .height(56.dp)
                 .align(Alignment.BottomCenter)
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFF9775FA)),
+                .background(Color(0xFF9775FA))
+                .clickable {
+                    viewModel.addToCart(product!!)
+                    Toast.makeText(context, "Add to cart successfully", Toast.LENGTH_SHORT).show()
+                },
             contentAlignment = Alignment.Center
         ) {
             Text("Add to cart", fontSize = 17.sp, color = Color.White)

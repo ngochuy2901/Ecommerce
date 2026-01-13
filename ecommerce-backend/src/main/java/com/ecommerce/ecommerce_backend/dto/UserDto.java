@@ -20,6 +20,6 @@ public class UserDto {
     private String fullName;
     private String avatarUrl;
     private User.Gender gender;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private User.Role role;
 }

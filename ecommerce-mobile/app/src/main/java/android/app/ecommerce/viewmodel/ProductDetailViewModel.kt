@@ -1,6 +1,7 @@
 package android.app.ecommerce.viewmodel
 
 import android.app.ecommerce.data.model.Product
+import android.app.ecommerce.data.repository.CartRepository
 import android.app.ecommerce.data.repository.ProductRepository
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -13,7 +14,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
 class ProductDetailViewModel(
     savedStateHandle: SavedStateHandle,
-    private val productRepository: ProductRepository = ProductRepository()
+    private val productRepository: ProductRepository = ProductRepository(),
+    private val cartRepository: CartRepository = CartRepository()
 ) : ViewModel() {
 
     private val productId: Long =
@@ -40,6 +42,12 @@ class ProductDetailViewModel(
             } finally {
                 _isLoading.value = false
             }
+        }
+    }
+
+    fun addToCart(product: Product) {
+        viewModelScope.launch {
+            cartRepository.addProductToCart(product)
         }
     }
 }

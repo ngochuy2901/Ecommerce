@@ -39,6 +39,9 @@ fun AppNavigation() {
         composable("sign_up") {
             SignUpScreen(navController = navController)
         }
+        composable("cart") {
+            CartScreen(navController)
+        }
         composable("splash") {
             SplashScreen(navController = navController)
         }

@@ -12,12 +12,12 @@ data class User(
     val fullName: String? = null,
     val avatarUrl: String? = null,
     val gender: Gender? = null,
-    val dateOfBirth: LocalDate? = null,
+    val dateOfBirth: String? = null,
     val role: Role? = Role.USER,
     val status: UserStatus? = UserStatus.ACTIVE,
-    val lastLogin: LocalDateTime? = null,
-    val createdAt: LocalDateTime? = null,
-    val updatedAt: LocalDateTime? = null
+    val lastLogin: String? = null,
+    val createdAt: String? = null,
+    val updatedAt: String? = null
 )
 
 enum class Role {

@@ -38,3 +38,5 @@ class MainActivity : ComponentActivity() {
 
 
 //https://www.figma.com/design/aStonRDiqnMtoSHBpgN4PA/Laza---Ecommerce-Mobile-App-UI-Kit--Community-?node-id=1-1099&t=ODqhfQmAeUksgkUX-0
+//lam them cartitem vao cart
+//neu cart item khong co trong cart, tao moi, co thi tang so luong len 1

@@ -27,11 +27,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LayoutWithHeaderBackIconButton(title: String, content: @Composable () -> Unit) {
-    LazyColumn(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)) {
+fun LayoutWithHeaderBackIconButton(
+    title: String,
+    onBackClick: () -> Unit, content: @Composable () -> Unit
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
         item {
             Box(
                 modifier = Modifier
@@ -40,7 +45,9 @@ fun LayoutWithHeaderBackIconButton(title: String, content: @Composable () -> Uni
                 contentAlignment = Alignment.Center
             ) {
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        onBackClick()
+                    },
                     modifier = Modifier
                         .size(45.dp)
                         .clip(CircleShape)
@@ -65,5 +72,5 @@ fun LayoutWithHeaderBackIconButton(title: String, content: @Composable () -> Uni
 @Composable
 @Preview
 fun LayoutWithHeaderBackIconButtonPreview() {
-    LayoutWithHeaderBackIconButton("Title", {Text("Header")})
+    LayoutWithHeaderBackIconButton("Title", {}, { Text("Header") })
 }

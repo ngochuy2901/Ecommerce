@@ -21,11 +21,11 @@ object UserFakeData {
         fullName = "Admin Hệ Thống",
         avatarUrl = "https://example.com/avatars/admin_super.jpg",
         gender = Gender.MALE,
-        dateOfBirth = LocalDate.of(1990, 5, 15),
+        dateOfBirth = LocalDate.now().toString(),
         role = Role.ADMIN, // Ghi đè giá trị mặc định
         status = UserStatus.ACTIVE,
-        lastLogin = LocalDateTime.now(),
-        createdAt = LocalDateTime.of(2023, 1, 1, 10, 0)
+        lastLogin = LocalDateTime.now().toString(),
+        createdAt = LocalDateTime.now().toString()
     )
     @RequiresApi(Build.VERSION_CODES.O)
     val userDtoExample = UserDto(

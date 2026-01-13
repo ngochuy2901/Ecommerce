@@ -41,7 +41,7 @@ public class User {
     private Gender gender;
 
     @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -50,25 +50,25 @@ public class User {
     private UserStatus status;
 
     @Column(name = "last_login")
-    private LocalDateTime lastLogin;
+    private String lastLogin;
 
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now().toString();
+        updatedAt = LocalDateTime.now().toString();
         status = UserStatus.ACTIVE;
         role = Role.USER;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now().toString();
     }
 
     public enum Role {

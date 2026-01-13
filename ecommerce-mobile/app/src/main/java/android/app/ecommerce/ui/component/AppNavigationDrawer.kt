@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -46,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -136,7 +139,8 @@ fun AppNavigationDrawer(
 
 @Composable
 fun DrawerMenuIcon(
-    drawerState: DrawerState
+    drawerState: DrawerState,
+    navController: NavController
 ) {
     val scope = rememberCoroutineScope()
 
@@ -155,7 +159,9 @@ fun DrawerMenuIcon(
             Icon(painterResource(R.drawable.icon_view_list), null)
         }
         IconButton(
-            onClick = {}, modifier = Modifier
+            onClick = {
+                navController.navigate("cart")
+            }, modifier = Modifier
                 .size(45.dp)
                 .clip(CircleShape)
                 .background(Color(0xFFF5F6FA))
@@ -163,6 +169,12 @@ fun DrawerMenuIcon(
             Icon(painterResource(R.drawable.icon_cart), null)
         }
     }
+}
+
+@Composable
+@Preview
+fun DrawerMenuIconPreview() {
+    DrawerMenuIcon(rememberDrawerState(DrawerValue.Closed), rememberNavController())
 }
 
 @Composable
