@@ -8,7 +8,7 @@ import android.app.ecommerce.ui.screen.LoginScreen
 import android.app.ecommerce.ui.screen.ProductDetailScreen
 import android.app.ecommerce.ui.screen.ProfileScreen
 import android.app.ecommerce.ui.screen.ReviewScreen
-import android.app.ecommerce.ui.screen.SellerSignUpScreen
+import android.app.ecommerce.ui.screen.SignUpForSellerScreen
 import android.app.ecommerce.ui.screen.SignUpScreen
 import android.app.ecommerce.ui.screen.SplashScreen
 import android.app.ecommerce.ui.screen.VerificationCodeScreen
@@ -52,7 +52,7 @@ fun AppNavigation() {
             DashBoardForSeller()
         }
         composable("sign_up_seller") {
-            SellerSignUpScreen(navController)
+            SignUpForSellerScreen(navController)
         }
         composable("splash") {
             SplashScreen(navController = navController)

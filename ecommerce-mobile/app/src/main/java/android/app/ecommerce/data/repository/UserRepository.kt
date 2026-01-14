@@ -5,6 +5,7 @@ import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.data.dto.LoginRequest
 import android.app.ecommerce.data.dto.LoginResponse
 import android.app.ecommerce.data.dto.UserDto
+import android.app.ecommerce.data.model.User
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
@@ -20,5 +21,9 @@ class UserRepository() {
 
     suspend fun getUserProfile() : UserDto {
         return RetrofitClient.userApi.getUserProfile()
+    }
+
+    suspend fun register(user: User) : Response<UserDto> {
+        return RetrofitClient.userApi.register(user);
     }
 }

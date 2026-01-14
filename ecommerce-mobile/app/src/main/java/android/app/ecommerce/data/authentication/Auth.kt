@@ -10,6 +10,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.core.content.edit
 import com.google.gson.Gson
+import retrofit2.HttpException
+import java.io.IOException
 
 class Auth(context: Context) {
     private val gson = Gson()
@@ -33,6 +35,33 @@ class Auth(context: Context) {
             null
         }
     }
+
+    suspend fun signUp(user: User): UserDto? {
+        return try {
+            val response = UserRepository().register(user)
+            if (response.isSuccessful) {
+                response.body()?.also { userDto ->
+                    // Lưu user info vào SharedPreferences nếu cần
+                    saveUserInfo(userDto)
+                }
+            } else {
+                // Log lỗi nếu response không thành công
+                val errorBody = response.errorBody()?.string()
+                Log.e("AuthSignUp", "SignUp thất bại: code=${response.code()}, error=$errorBody")
+                null
+            }
+        } catch (e: HttpException) {
+            Log.e("AuthSignUp", "HTTP exception: ${e.code()} - ${e.message()}")
+            null
+        } catch (e: IOException) {
+            Log.e("AuthSignUp", "Network error: ${e.message}")
+            null
+        } catch (e: Exception) {
+            Log.e("AuthSignUp", "Unknown error: ${e::class.java} - ${e.message}")
+            null
+        }
+    }
+
     suspend fun loadUserProfile() {
         val userDto = UserRepository().getUserProfile()
         saveUserInfo(userDto)

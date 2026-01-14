@@ -107,6 +107,10 @@ public class UserService {
             throw new ServiceException("Failed to retrieve user profile", e);
         }
     }
+    //get user
+    public Optional<User> getUserByUserName(String username) {
+        return userRepository.findByUsername(username);
+    }
 
     //update user profile
     public User updateUserProfile(String username, User newUser) {

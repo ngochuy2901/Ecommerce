@@ -3,7 +3,7 @@ package android.app.ecommerce.data.model
 import java.time.LocalDateTime
 
 data class SellerProfile(
-    val id: Long,
+    val id: Long?=null,
     val userId: Long,
 
     val shopName: String,
@@ -14,8 +14,8 @@ data class SellerProfile(
 
     val status: SellerStatus,
 
-    val createdAt: LocalDateTime?=null,
-    val approvedAt: LocalDateTime? = null
+    val createdAt: String?=null,
+    val approvedAt: String? = null
 )
 
 enum class SellerStatus {

@@ -37,14 +37,14 @@ public class SellerProfile {
     private SellerStatus status;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @Column(name = "approved_at")
-    private LocalDateTime approvedAt;
+    private String approvedAt;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now().toString();
         status = SellerStatus.PENDING;
     }
 
