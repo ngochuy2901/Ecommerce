@@ -1,16 +1,12 @@
-package android.app.ecommerce.viewmodel
+package android.app.ecommerce.viewmodel.auth
 
 import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.data.dto.LoginRequest
-import android.app.ecommerce.data.repository.UserRepository
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException

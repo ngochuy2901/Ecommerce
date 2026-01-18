@@ -1,7 +1,10 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.authentication
 
 import android.app.ecommerce.R
-import android.app.ecommerce.ui.component.SocialSignInButton
+import android.app.ecommerce.data.authentication.Auth
+import android.app.ecommerce.ui.component.LoginInput
+import android.app.ecommerce.viewmodel.auth.LoginViewModel
+import android.app.ecommerce.viewmodel.auth.LoginViewModelFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,20 +21,46 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun EntryAuthScreen(navController: NavController) {
+fun LoginScreen(navController: NavController) {
+
+    val auth = Auth(LocalContext.current)
+    val viewModel: LoginViewModel = viewModel(
+        factory = LoginViewModelFactory(auth)
+    )
+    val isLoading by viewModel.isLoading
+    val loginError by viewModel.loginError
+    val isLoginSuccess by viewModel.isLoginSuccess
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    LaunchedEffect(isLoginSuccess) {
+        if (isLoginSuccess) {
+            auth.loadUserProfile()
+            navController.navigate("home") {
+                popUpTo("login") { inclusive = true }
+            }
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,29 +92,26 @@ fun EntryAuthScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Let’s Get Started",
+                text = "Welcome",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = "Please enter your data to continue",
+                fontSize = 15.sp,
+                color = Color(0xFF8F959E)
             )
         }
 
         // Social buttons - CENTER
-        SocialSignInButton(
-            modifier = Modifier.align(Alignment.Center)
+        LoginInput(
+            modifier = Modifier.align(Alignment.Center),
+            username = username,
+            password = password,
+            onUsernameChange = { username = it },
+            onPasswordChange = { password = it }
         )
 
-        // Already have account - dưới social buttons
-        Text(
-            text = "Already have an account? Sign in",
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(top = 220.dp)
-                .clickable {
-                    navController.navigate("login")
-                }
-        )
 
         // Create Account button - bottom
         Box(
@@ -96,12 +122,12 @@ fun EntryAuthScreen(navController: NavController) {
                 .clip(RoundedCornerShape(12.dp))
                 .background(Color(0xFF9775FA))
                 .clickable {
-                    navController.navigate("sign_up")
+                    viewModel.login(username, password)
                 },
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Create an Account",
+                text = "Login",
                 fontSize = 17.sp,
                 color = Color.White
             )
@@ -109,10 +135,8 @@ fun EntryAuthScreen(navController: NavController) {
     }
 }
 
-
 @Composable
 @Preview
-fun EntryAuthScreenPreview() {
-    EntryAuthScreen(rememberNavController())
+fun LoginScreenPreview() {
+    LoginScreen(rememberNavController())
 }
-

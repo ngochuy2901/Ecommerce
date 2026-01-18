@@ -1,4 +1,4 @@
-package android.app.ecommerce.viewmodel
+package android.app.ecommerce.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

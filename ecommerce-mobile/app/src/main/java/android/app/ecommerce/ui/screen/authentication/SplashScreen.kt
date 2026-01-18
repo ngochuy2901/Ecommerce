@@ -1,7 +1,6 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.authentication
 
 import android.app.ecommerce.data.authentication.Auth
-import android.window.SplashScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

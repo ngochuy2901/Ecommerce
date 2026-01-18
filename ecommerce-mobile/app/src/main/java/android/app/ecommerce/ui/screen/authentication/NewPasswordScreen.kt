@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.authentication
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

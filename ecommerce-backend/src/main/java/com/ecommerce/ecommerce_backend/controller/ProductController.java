@@ -1,8 +1,13 @@
 package com.ecommerce.ecommerce_backend.controller;
 
+import com.ecommerce.ecommerce_backend.dto.UserDto;
 import com.ecommerce.ecommerce_backend.entity.Product;
+import com.ecommerce.ecommerce_backend.entity.SellerProfile;
+import com.ecommerce.ecommerce_backend.entity.User;
 import com.ecommerce.ecommerce_backend.security.JwtUtil;
 import com.ecommerce.ecommerce_backend.service.ProductService;
+import com.ecommerce.ecommerce_backend.service.SellerProfileService;
+import com.ecommerce.ecommerce_backend.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -10,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("product")
@@ -18,7 +25,8 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final JwtUtil jwtUtil;
-
+    private final UserService userService;
+    private final SellerProfileService sellerProfileService;
     @PostMapping(
             value = "/add_new_product",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -39,6 +47,26 @@ public class ProductController {
                 productService.saveNewProduct(username, product, file)
         );
     }
+
+    @GetMapping("get_products_by_shop")
+    public ResponseEntity<List<Product>> getProductsByShop(
+            @RequestHeader("Authorization") String authHeader
+    ) {
+        String token = jwtUtil.getTokenFromAuthHeader(authHeader);
+        String username = jwtUtil.extractUsername(token);
+
+        User user = userService.getUserByUserName(username)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại"));
+
+        SellerProfile seller = sellerProfileService
+                .findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("User chưa đăng ký bán hàng"));
+
+        return ResponseEntity.ok(
+                productService.getProductBySellerId(seller.getId())
+        );
+    }
+
 
     @GetMapping("get_product_by_id/{product_id}")
     public ResponseEntity<Product> getProductById(@PathVariable("product_id") Long productId) {

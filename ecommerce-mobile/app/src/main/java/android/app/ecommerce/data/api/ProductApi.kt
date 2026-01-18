@@ -11,4 +11,7 @@ interface ProductApi {
 
     @GET("product/get_product_by_id/{product_id}")
     suspend fun getProductById(@Path("product_id") productId: Long): Response<Product>
+
+    @GET("product/get_products_by_shop")
+    suspend fun getProductsByShop() : Response<List<Product>>
 }

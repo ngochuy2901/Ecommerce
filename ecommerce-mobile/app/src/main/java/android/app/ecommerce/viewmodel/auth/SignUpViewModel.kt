@@ -1,4 +1,4 @@
-package android.app.ecommerce.viewmodel
+package android.app.ecommerce.viewmodel.auth
 
 import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.data.model.User

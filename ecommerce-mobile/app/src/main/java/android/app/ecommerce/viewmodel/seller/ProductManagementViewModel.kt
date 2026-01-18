@@ -1,18 +1,16 @@
-package android.app.ecommerce.viewmodel
+package android.app.ecommerce.viewmodel.seller
 
 import android.app.ecommerce.data.model.Product
 import android.app.ecommerce.data.repository.ProductRepository
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-
-class HomeViewModel(
-    private val repository: ProductRepository = ProductRepository()
+class ProductManagementViewModel(
+    private val productRepository: ProductRepository
 ) : ViewModel() {
-
     private val _products = mutableStateOf<List<Product>>(emptyList())
     val products: State<List<Product>> = _products
 
@@ -27,7 +25,7 @@ class HomeViewModel(
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                _products.value = repository.getProducts()
+                _products.value = productRepository.getProductsByShop()?: emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {

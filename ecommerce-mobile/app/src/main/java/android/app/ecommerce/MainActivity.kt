@@ -2,9 +2,6 @@ package android.app.ecommerce
 
 import android.app.ecommerce.data.api.RetrofitClient
 import android.app.ecommerce.ui.component.AppNavigation
-import android.app.ecommerce.ui.screen.AddressScreen
-import android.app.ecommerce.ui.screen.HomeScreen
-import android.app.ecommerce.ui.screen.SplashScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

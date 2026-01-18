@@ -96,6 +96,15 @@ public class ProductService {
         return product.get();
     }
 
+    //get products by sellerid
+    public List<Product> getProductBySellerId(Long sellerId) {
+        List<Product> productsList = productRepository.findBySellerId(sellerId);
+        if (productsList.isEmpty()) {
+            throw new ServiceException("product is not exits!");
+        }
+        return productsList;
+    }
+
     //find by category
     public List<Product> findByCategoryId(Long categoryId) {
         return productRepository.findByCategoryId(categoryId);

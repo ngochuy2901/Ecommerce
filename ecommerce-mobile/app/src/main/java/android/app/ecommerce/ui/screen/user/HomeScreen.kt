@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.user
 
 import android.app.ecommerce.data.authentication.Auth
 import android.app.ecommerce.ui.component.AppNavigationDrawer
@@ -6,7 +6,7 @@ import android.app.ecommerce.ui.component.DrawerMenuIcon
 import androidx.lifecycle.viewmodel.compose.viewModel
 import android.app.ecommerce.ui.component.ProductList
 import android.app.ecommerce.ui.component.SearchBar
-import android.app.ecommerce.viewmodel.HomeViewModel
+import android.app.ecommerce.viewmodel.user.HomeViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

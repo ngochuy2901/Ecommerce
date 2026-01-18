@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.user
 
 
 import android.annotation.SuppressLint
@@ -6,8 +6,7 @@ import android.app.ecommerce.R
 import android.app.ecommerce.data.fakedata.CartFakeData
 import android.app.ecommerce.data.model.CartItem
 import android.app.ecommerce.ui.component.LayoutWithHeaderBackIconButton
-import android.app.ecommerce.ui.component.ProductList
-import android.app.ecommerce.viewmodel.CartViewModel
+import android.app.ecommerce.viewmodel.user.CartViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

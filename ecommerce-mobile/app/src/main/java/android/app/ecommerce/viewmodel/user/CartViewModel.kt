@@ -1,4 +1,4 @@
-package android.app.ecommerce.viewmodel
+package android.app.ecommerce.viewmodel.user
 
 import android.app.ecommerce.data.model.Cart
 import android.app.ecommerce.data.model.CartItem

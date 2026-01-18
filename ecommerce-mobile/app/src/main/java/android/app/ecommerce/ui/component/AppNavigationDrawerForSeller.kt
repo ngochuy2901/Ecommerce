@@ -86,6 +86,89 @@ fun AppNavigationDrawerForSeller(
                         )
                     }
 
+                    NavigationDrawerItem(
+                        label = { Text("Dashboard") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Products") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Order") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Shop profile") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Revenue and payment") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Rating and review") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
+
+                    NavigationDrawerItem(
+                        label = { Text("Notification") },
+                        selected = false,
+                        icon = {
+                            Icon(
+                                painterResource(R.drawable.icon_lock),
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {}
+                    )
 
                     NavigationDrawerItem(
                         label = { Text("Settings") },

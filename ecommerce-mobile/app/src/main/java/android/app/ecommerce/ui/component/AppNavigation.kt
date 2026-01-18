@@ -1,19 +1,19 @@
 package android.app.ecommerce.ui.component
 
-import android.app.ecommerce.ui.screen.CartScreen
-import android.app.ecommerce.ui.screen.DashBoardForSeller
-import android.app.ecommerce.ui.screen.EntryAuthScreen
-import android.app.ecommerce.ui.screen.HomeScreen
-import android.app.ecommerce.ui.screen.LoginScreen
-import android.app.ecommerce.ui.screen.ProductDetailScreen
-import android.app.ecommerce.ui.screen.ProfileScreen
-import android.app.ecommerce.ui.screen.ReviewScreen
-import android.app.ecommerce.ui.screen.SignUpForSellerScreen
-import android.app.ecommerce.ui.screen.SignUpScreen
-import android.app.ecommerce.ui.screen.SplashScreen
-import android.app.ecommerce.ui.screen.VerificationCodeScreen
-import android.app.ecommerce.viewmodel.ProductDetailViewModel
-import android.app.ecommerce.viewmodel.ProductDetailViewModelFactory
+import android.app.ecommerce.ui.screen.user.CartScreen
+import android.app.ecommerce.ui.screen.authentication.EntryAuthScreen
+import android.app.ecommerce.ui.screen.user.HomeScreen
+import android.app.ecommerce.ui.screen.authentication.LoginScreen
+import android.app.ecommerce.ui.screen.user.ProductDetailScreen
+import android.app.ecommerce.ui.screen.user.ProfileScreen
+import android.app.ecommerce.ui.screen.user.ReviewScreen
+import android.app.ecommerce.ui.screen.seller.SellerHomeScreen
+import android.app.ecommerce.ui.screen.seller.SignUpForSellerScreen
+import android.app.ecommerce.ui.screen.authentication.SignUpScreen
+import android.app.ecommerce.ui.screen.authentication.SplashScreen
+import android.app.ecommerce.ui.screen.authentication.VerificationCodeScreen
+import android.app.ecommerce.viewmodel.user.ProductDetailViewModel
+import android.app.ecommerce.viewmodel.user.ProductDetailViewModelFactory
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -49,7 +49,7 @@ fun AppNavigation() {
             ProfileScreen(navController)
         }
         composable("dashboard") {
-            DashBoardForSeller()
+            SellerHomeScreen(navController)
         }
         composable("sign_up_seller") {
             SignUpForSellerScreen(navController)

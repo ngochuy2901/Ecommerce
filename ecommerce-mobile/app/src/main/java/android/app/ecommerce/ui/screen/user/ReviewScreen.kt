@@ -1,8 +1,7 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.user
 
 import android.app.ecommerce.R
 import android.app.ecommerce.data.fakedata.ReviewFakeData
-import android.app.ecommerce.data.model.Review
 import android.app.ecommerce.ui.component.RatingStars
 import android.app.ecommerce.ui.component.ReviewList
 import androidx.compose.foundation.background
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

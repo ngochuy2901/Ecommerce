@@ -1,8 +1,9 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.authentication
 
 import android.app.ecommerce.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -34,11 +36,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun VerificationCodeScreen(navController: NavController) {
+fun ForgotPasswordScreen() {
+
     var username by remember { mutableStateOf("") }
 
     Box(
@@ -72,7 +73,7 @@ fun VerificationCodeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Verification Code",
+                text = "Forgot Password",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -80,7 +81,7 @@ fun VerificationCodeScreen(navController: NavController) {
 
         Column(
             modifier = Modifier.align(Alignment.Center),
-            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Image(
                 painterResource(R.drawable.image_cloud_lock),
@@ -91,7 +92,7 @@ fun VerificationCodeScreen(navController: NavController) {
                     .align(Alignment.CenterHorizontally)
             )
             Text(
-                text = "Cần sửa đọan này",
+                text = "Email Address",
                 fontSize = 13.sp,
                 color = Color(0xFF8F959E)
             )
@@ -107,8 +108,8 @@ fun VerificationCodeScreen(navController: NavController) {
                         val y = size.height
                         drawLine(
                             color = Color.Gray,
-                            start = androidx.compose.ui.geometry.Offset(0f, y),
-                            end = androidx.compose.ui.geometry.Offset(size.width, y),
+                            start = Offset(0f, y),
+                            end = Offset(size.width, y),
                             strokeWidth = strokeWidth
                         )
                     },
@@ -130,7 +131,7 @@ fun VerificationCodeScreen(navController: NavController) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Confirm Code",
+                text = "Confirm Mail",
                 fontSize = 17.sp,
                 color = Color.White
             )
@@ -140,6 +141,6 @@ fun VerificationCodeScreen(navController: NavController) {
 
 @Composable
 @Preview
-fun VerificationCodeScreenPreview() {
-    VerificationCodeScreen(rememberNavController())
+fun ForgotPasswordScreenPreview() {
+    ForgotPasswordScreen()
 }

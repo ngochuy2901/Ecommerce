@@ -1,12 +1,9 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.user
 
 import android.app.ecommerce.R
-import android.app.ecommerce.data.fakedata.FakeData
 import android.app.ecommerce.data.fakedata.SellerProfileFakeData
-import android.app.ecommerce.data.model.Product
-import android.app.ecommerce.data.repository.CartRepository
 import android.app.ecommerce.ui.component.SellerInfo
-import android.app.ecommerce.viewmodel.ProductDetailViewModel
+import android.app.ecommerce.viewmodel.user.ProductDetailViewModel
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon

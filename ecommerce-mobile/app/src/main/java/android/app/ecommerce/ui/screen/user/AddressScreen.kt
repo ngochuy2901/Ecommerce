@@ -1,4 +1,4 @@
-package android.app.ecommerce.ui.screen
+package android.app.ecommerce.ui.screen.user
 
 import android.app.ecommerce.ui.component.LayoutWithHeaderBackIconButton
 import androidx.compose.foundation.background

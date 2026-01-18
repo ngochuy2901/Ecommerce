@@ -25,4 +25,13 @@ class ProductRepository {
         }
     }
 
+    suspend fun getProductsByShop() : List<Product>? {
+        val response = RetrofitClient.productApi.getProductsByShop()
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
+        }
+    }
+
 }

@@ -133,6 +133,7 @@ fun AppNavigationDrawer(
                                 if (userInfo!!.role == Role.SELLER) {
                                     navController.navigate("dashboard")
                                 } else {
+
                                     showDialog = true
                                 }
                             }
