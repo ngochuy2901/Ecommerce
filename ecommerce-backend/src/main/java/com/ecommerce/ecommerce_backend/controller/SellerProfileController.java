@@ -32,4 +32,14 @@ public class SellerProfileController {
         }
         return ResponseEntity.ok(sellerProfileService.save(sellerProfile));
     }
+
+    @GetMapping("get_seller_profile_info")
+    public ResponseEntity<SellerProfile> getSellerProfile(@RequestHeader("Authorization") String authHeader) {
+        String token = jwtUtil.getTokenFromAuthHeader(authHeader);
+        String username = jwtUtil.extractUsername(token);
+        Optional<User> user = userService.getUserByUserName(username);
+        Optional<SellerProfile> sellerProfile = sellerProfileService.getSellerProfileByUserId(user.get().getId());
+        return sellerProfile.map(ResponseEntity::ok).orElse(null);
+
+    }
 }

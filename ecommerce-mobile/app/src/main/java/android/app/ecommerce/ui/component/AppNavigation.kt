@@ -12,6 +12,8 @@ import android.app.ecommerce.ui.screen.seller.SignUpForSellerScreen
 import android.app.ecommerce.ui.screen.authentication.SignUpScreen
 import android.app.ecommerce.ui.screen.authentication.SplashScreen
 import android.app.ecommerce.ui.screen.authentication.VerificationCodeScreen
+import android.app.ecommerce.ui.screen.seller.ProductManagementScreen
+import android.app.ecommerce.ui.screen.user.CheckOutScreen
 import android.app.ecommerce.viewmodel.user.ProductDetailViewModel
 import android.app.ecommerce.viewmodel.user.ProductDetailViewModelFactory
 import androidx.compose.runtime.Composable
@@ -48,8 +50,14 @@ fun AppNavigation() {
         composable("profile") {
             ProfileScreen(navController)
         }
-        composable("dashboard") {
+        composable("seller_home_screen") {
             SellerHomeScreen(navController)
+        }
+        composable("product_management") {
+            ProductManagementScreen(navController)
+        }
+        composable("check_out") {
+            CheckOutScreen(navController)
         }
         composable("sign_up_seller") {
             SignUpForSellerScreen(navController)

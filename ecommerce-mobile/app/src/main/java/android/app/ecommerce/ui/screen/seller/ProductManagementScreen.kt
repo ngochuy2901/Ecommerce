@@ -1,10 +1,13 @@
 package android.app.ecommerce.ui.screen.seller
 
+import android.app.ecommerce.data.repository.ProductRepository
 import android.app.ecommerce.ui.component.AppNavigationDrawer
+import android.app.ecommerce.ui.component.AppNavigationDrawerForSeller
 import android.app.ecommerce.ui.component.DrawerMenuIcon
 import android.app.ecommerce.ui.component.ProductList
 import android.app.ecommerce.ui.component.SearchBar
 import android.app.ecommerce.viewmodel.seller.ProductManagementViewModel
+import android.app.ecommerce.viewmodel.seller.ProductManagementViewModelFactory
 import android.app.ecommerce.viewmodel.user.HomeViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -33,14 +37,20 @@ import androidx.navigation.compose.rememberNavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductManagementScreen(
-    viewModel: ProductManagementViewModel = viewModel(),
     navController: NavController
 ) {
+    val productRepository = remember { ProductRepository() }
+    val factory = remember {
+        ProductManagementViewModelFactory(productRepository)
+    }
+
+    val viewModel: ProductManagementViewModel =
+        viewModel(factory = factory)
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val products by viewModel.products
     val isLoading by viewModel.isLoading
 
-    AppNavigationDrawer(
+    AppNavigationDrawerForSeller(
         drawerState = drawerState,
         navController = navController
     ) {
@@ -78,5 +88,5 @@ fun ProductManagementScreen(
 @Composable
 @Preview
 fun ProductManagementScreenPreview() {
-    ProductManagementScreen(viewModel(), rememberNavController())
+    ProductManagementScreen(rememberNavController())
 }

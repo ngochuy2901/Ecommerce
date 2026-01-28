@@ -130,12 +130,7 @@ fun AppNavigationDrawer(
                                 )
                             },
                             onClick = {
-                                if (userInfo!!.role == Role.SELLER) {
-                                    navController.navigate("dashboard")
-                                } else {
-
-                                    showDialog = true
-                                }
+                                navController.navigate("seller_home_screen")
                             }
                         )
                     }

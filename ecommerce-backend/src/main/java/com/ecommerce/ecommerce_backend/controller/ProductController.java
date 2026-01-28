@@ -47,7 +47,6 @@ public class ProductController {
                 productService.saveNewProduct(username, product, file)
         );
     }
-
     @GetMapping("get_products_by_shop")
     public ResponseEntity<List<Product>> getProductsByShop(
             @RequestHeader("Authorization") String authHeader

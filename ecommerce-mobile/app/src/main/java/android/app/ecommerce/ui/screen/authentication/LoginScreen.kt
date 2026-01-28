@@ -57,7 +57,10 @@ fun LoginScreen(navController: NavController) {
         if (isLoginSuccess) {
             auth.loadUserProfile()
             navController.navigate("home") {
-                popUpTo("login") { inclusive = true }
+                popUpTo("login") {
+                    inclusive = true
+                }
+                launchSingleTop = true
             }
         }
     }

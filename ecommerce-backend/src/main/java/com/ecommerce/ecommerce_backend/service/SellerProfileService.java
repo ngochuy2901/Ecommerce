@@ -19,6 +19,8 @@ public class SellerProfileService {
     public Optional<SellerProfile> findByUserId(Long userId) {
         return sellerProfileRepository.findByUser_Id(userId);
     }
-
+    public Optional<SellerProfile> getSellerProfileByUserId(Long userId) {
+        return sellerProfileRepository.findByUser_Id(userId);
+    }
 
 }

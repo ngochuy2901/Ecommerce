@@ -5,6 +5,7 @@ import android.app.ecommerce.data.repository.ProductRepository
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
@@ -32,5 +33,17 @@ class ProductManagementViewModel(
                 _isLoading.value = false
             }
         }
+    }
+}
+
+class ProductManagementViewModelFactory(
+    private val productRepository: ProductRepository
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ProductManagementViewModel::class.java)) {
+            return ProductManagementViewModel(productRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

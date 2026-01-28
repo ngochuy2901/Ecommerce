@@ -107,7 +107,9 @@ fun AppNavigationDrawerForSeller(
                                 contentDescription = null
                             )
                         },
-                        onClick = {}
+                        onClick = {
+                            navController.navigate("product_management")
+                        }
                     )
 
                     NavigationDrawerItem(

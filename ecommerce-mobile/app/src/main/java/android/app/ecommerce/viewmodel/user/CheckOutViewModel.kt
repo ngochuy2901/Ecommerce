@@ -9,33 +9,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class CartViewModel(
+class CheckOutViewModel(
     private val cartRepository: CartRepository = CartRepository()
 ) : ViewModel() {
-    private val _cart = mutableStateOf<Cart?>(null)
-    val cart: State<Cart?> = _cart
-
-    private val _subtotal = mutableStateOf(0.0)
-    val subtotal: State<Double> = _subtotal
-
-    private val _listCartItem = mutableStateOf<List<CartItem>>(emptyList())
-    val listCartItem: State<List<CartItem>> = _listCartItem
-
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
 
+    private val _cart = mutableStateOf<Cart?>(null)
+    val cart: State<Cart?> = _cart
+
+
+    private val _listCartItem = mutableStateOf<List<CartItem>>(emptyList())
+    val listCartItem: State<List<CartItem>> = _listCartItem
+
     init {
-        loadUserCart()
+        loadCheckOut()
     }
 
-    private fun loadUserCart() {
+    private fun loadCheckOut() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val items = cartRepository.getUserCartItemList() ?: emptyList()
-                _listCartItem.value = items
-                calculateSubtotal(items) // 👈 thêm dòng này
+                _listCartItem.value = cartRepository.getUserCartItemList()?: emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
@@ -44,17 +40,4 @@ class CartViewModel(
             }
         }
     }
-
-
-    private fun calculateSubtotal(items: List<CartItem>) {
-        _subtotal.value = items.sumOf { cartItem ->
-            val price =
-                cartItem.product?.salePrice
-                    ?: cartItem.product?.price
-                    ?: 0.0
-
-            price * cartItem.quantity
-        }
-    }
-
 }
